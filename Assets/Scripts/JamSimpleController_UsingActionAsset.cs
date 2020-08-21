@@ -4,13 +4,14 @@ using UnityEngine.InputSystem.Interactions;
 using Cinemachine;
 
 // Use action set asset instead of lose InputActions directly on component.
-public class SimpleController_UsingActionAsset : MonoBehaviour
+public class JamSimpleController_UsingActionAsset : MonoBehaviour
 {
     public float moveSpeed;
     public float rotateSpeed;
     public float burstSpeed;
+    public float xAxisSpeedCoeficient;
     public GameObject projectile;
-    public CinemachineVirtualCamera vCamera;
+    public CinemachineFreeLook vCamera;
 
     private SimpleControls m_Controls;
     private bool m_Charging;
@@ -21,7 +22,7 @@ public class SimpleController_UsingActionAsset : MonoBehaviour
     {
         m_Controls = new SimpleControls();
         Debug.Log("FOO");
-        m_Controls.gameplay.fire.performed +=
+        /*m_Controls.gameplay.fire.performed +=
             ctx =>
         {
             Debug.Log("BaR");
@@ -31,7 +32,7 @@ public class SimpleController_UsingActionAsset : MonoBehaviour
             }
             else
             {
-                Fire();
+                //Fire();
             }
             m_Charging = false;
         };
@@ -45,7 +46,7 @@ public class SimpleController_UsingActionAsset : MonoBehaviour
             ctx =>
         {
             m_Charging = false;
-        };
+        };*/
     }
 
     public void OnEnable()
@@ -80,10 +81,12 @@ public class SimpleController_UsingActionAsset : MonoBehaviour
         if (direction.sqrMagnitude < 0.01)
             return;
         var scaledMoveSpeed = moveSpeed * Time.deltaTime;
+        Debug.Log(direction.x);
         // For simplicity's sake, we just keep movement in a single plane here. Rotate
         // direction according to world Y rotation of player.
-        var move = Quaternion.Euler(0, transform.eulerAngles.y, 0) * new Vector3(direction.x, 0, direction.y);
-        transform.position += move * scaledMoveSpeed;
+        var move = Quaternion.Euler(0, vCamera.transform.rotation.y, 0) * new Vector3(direction.x, 0, direction.y);
+        
+        transform.position += transform.forward * scaledMoveSpeed * direction.y;
     }
 
     private void Look(Vector2 rotate)
@@ -93,7 +96,12 @@ public class SimpleController_UsingActionAsset : MonoBehaviour
         var scaledRotateSpeed = rotateSpeed * Time.deltaTime;
         m_Rotation.y += rotate.x * scaledRotateSpeed;
         //m_Rotation.x = Mathf.Clamp(m_Rotation.x - rotate.y * scaledRotateSpeed, -89, 89);
+        //Vector3 tempRotation = vCamera.transform.rotation.eulerAngles;
+        //tempRotation.x = Mathf.Clamp(tempRotation.x - rotate.y * scaledRotateSpeed, -89, 89);
+        vCamera.m_YAxis.Value = Mathf.Clamp(vCamera.m_YAxis.Value - rotate.y * scaledRotateSpeed * xAxisSpeedCoeficient, -89, 89);
+        //vCamera.transform.localEulerAngles = tempRotation;
         transform.localEulerAngles = m_Rotation;
+        vCamera.m_XAxis.Value = vCamera.m_XAxis.Value += rotate.x * scaledRotateSpeed;
     }
 
     private IEnumerator BurstFire(int burstAmount)

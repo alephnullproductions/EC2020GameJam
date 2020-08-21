@@ -83,7 +83,7 @@ public class SimpleController_UsingPlayerInput : MonoBehaviour
         if (rotate.sqrMagnitude < 0.01)
             return;
         var scaledRotateSpeed = rotateSpeed * Time.deltaTime;
-        m_Rotation.y += rotate.x * scaledRotateSpeed;
+        //m_Rotation.y += rotate.x * scaledRotateSpeed;
         m_Rotation.x = Mathf.Clamp(m_Rotation.x - rotate.y * scaledRotateSpeed, -89, 89);
         transform.localEulerAngles = m_Rotation;
     }

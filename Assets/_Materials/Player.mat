@@ -7,12 +7,12 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ConveyorEntranceInside
+  m_Name: Player
   m_Shader: {fileID: -6465566751694194690, guid: bff5105b1431ee748965afe39276aa62, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 2
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
-  m_DoubleSidedGI: 0
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -69,16 +69,16 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - glow_strength: 0.84
+    - glow_strength: 0
     m_Colors:
-    - Emissive_Color: {r: 0.9245283, g: 0.7033667, b: 0, a: 1}
+    - Emissive_Color: {r: 0, g: 0, b: 0, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - primary_color: {r: 1, g: 0.7466017, b: 0, a: 0}
+    - primary_color: {r: 0.6886792, g: 0.5677522, b: 0.19815768, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &4222193175446947014
+--- !u!114 &2365857201889245970
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
