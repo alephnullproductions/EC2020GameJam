@@ -8,7 +8,8 @@ public class FirstPersonInteracter : Interact
 {
     public float rayRange = 1f;
     public Transform holdPosition;
-    public Interactable objectHeald; 
+    public Interactable objectHeald;
+    
 
 
     private SimpleControls m_Controls;
@@ -24,7 +25,6 @@ public class FirstPersonInteracter : Interact
         m_Controls.gameplay.fire.performed +=
          ctx =>
          {
-          Debug.Log("BaR");
           if (ctx.interaction is SlowTapInteraction)
           {
 
@@ -79,7 +79,6 @@ public class FirstPersonInteracter : Interact
     {
         if(objectHeald == null)
         {
-            Debug.Log("LS");
             if (hit.transform != null)
             {
                 Interactable target = hit.transform.GetComponent<Interactable>();

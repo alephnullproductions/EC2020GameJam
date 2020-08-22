@@ -8,17 +8,22 @@ public class Interactable : MonoBehaviour
     public Material interactableMaterial;
     public GameObject ui;
 
+    public MeshRenderer boxRenderer;
+
     private Rigidbody rb;
     private bool isHeald = false;
     private Transform holder;
     public Collider interactionCollider;
+    public Material baseMaterial, glowMaterial;
     Transform parentTransform;
+
 
     public virtual void Awake()
     {
         source = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Interact>();
         rb = GetComponent<Rigidbody>();
         parentTransform = transform.parent;
+        baseMaterial = interactableMaterial;
     }
 
     private void Update()
@@ -27,7 +32,7 @@ public class Interactable : MonoBehaviour
         {
             source = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Interact>();
         }
-        interactableMaterial.SetFloat("glow_strength", 0f);
+        boxRenderer.material = baseMaterial;
         if(holder != null)
         {
             parentTransform.position = holder.position;
@@ -39,6 +44,7 @@ public class Interactable : MonoBehaviour
     {
         rb.useGravity = false;
         rb.freezeRotation = true;
+        transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
         isHeald = true;
         holder = source.GetHolder();
         interactionCollider.isTrigger = true;
@@ -75,7 +81,8 @@ public class Interactable : MonoBehaviour
 
     public virtual void OnHover()
     {
-        interactableMaterial.SetFloat("glow_strength", 6f);
+        boxRenderer.material = glowMaterial;
+        //interactableMaterial.SetFloat("glow_strength", 6f);
     }
 
     /*private void OnMouseOver()

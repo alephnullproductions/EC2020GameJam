@@ -87,7 +87,7 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - position: 7262.061
+    - position: 8524.409
     m_Colors:
     - Vector2_2E909DC6: {r: 2.3, g: 2, b: 0, a: 0}
     - Vector2_F0CB45A: {r: 0, g: 0, b: 0, a: 0}
