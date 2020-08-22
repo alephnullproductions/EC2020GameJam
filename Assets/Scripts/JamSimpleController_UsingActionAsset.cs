@@ -21,32 +21,6 @@ public class JamSimpleController_UsingActionAsset : MonoBehaviour
     public void Awake()
     {
         m_Controls = new SimpleControls();
-        Debug.Log("FOO");
-        /*m_Controls.gameplay.fire.performed +=
-            ctx =>
-        {
-            Debug.Log("BaR");
-            if (ctx.interaction is SlowTapInteraction)
-            {
-                StartCoroutine(BurstFire((int)(ctx.duration * burstSpeed)));
-            }
-            else
-            {
-                //Fire();
-            }
-            m_Charging = false;
-        };
-        m_Controls.gameplay.fire.started +=
-            ctx =>
-        {
-            if (ctx.interaction is SlowTapInteraction)
-                m_Charging = true;
-        };
-        m_Controls.gameplay.fire.canceled +=
-            ctx =>
-        {
-            m_Charging = false;
-        };*/
     }
 
     public void OnEnable()
@@ -95,11 +69,9 @@ public class JamSimpleController_UsingActionAsset : MonoBehaviour
             return;
         var scaledRotateSpeed = rotateSpeed * Time.deltaTime;
         m_Rotation.y += rotate.x * scaledRotateSpeed;
-        //m_Rotation.x = Mathf.Clamp(m_Rotation.x - rotate.y * scaledRotateSpeed, -89, 89);
-        //Vector3 tempRotation = vCamera.transform.rotation.eulerAngles;
-        //tempRotation.x = Mathf.Clamp(tempRotation.x - rotate.y * scaledRotateSpeed, -89, 89);
+
         vCamera.m_YAxis.Value = Mathf.Clamp(vCamera.m_YAxis.Value - rotate.y * scaledRotateSpeed * xAxisSpeedCoeficient, -89, 89);
-        //vCamera.transform.localEulerAngles = tempRotation;
+
         transform.localEulerAngles = m_Rotation;
         vCamera.m_XAxis.Value = vCamera.m_XAxis.Value += rotate.x * scaledRotateSpeed;
     }
